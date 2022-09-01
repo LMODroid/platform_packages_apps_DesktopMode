@@ -1,3 +1,13 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="pc_mode_config"
+        android:title="@string/pc_mode_config_title"
+        android:summary="@string/pc_mode_config_summery" />
+
+    <Preference
+        android:key="tv_mode_config"
+        android:title="@string/tv_mode_config_title"
+        android:summary="@string/tv_mode_config_summery" />
 
 </PreferenceScreen>
