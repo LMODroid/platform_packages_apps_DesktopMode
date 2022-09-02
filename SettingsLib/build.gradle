@@ -9,9 +9,11 @@ android {
         res.srcDirs = [
             'main/res',
             'CollapsingToolbarBaseActivity/res',
+            'TopIntroPreference/res',
         ]
         java.srcDirs = [
             'CollapsingToolbarBaseActivity/src',
+            'TopIntroPreference/src',
         ]
     }
 }
