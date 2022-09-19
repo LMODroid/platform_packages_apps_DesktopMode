@@ -8,11 +8,11 @@
     <Preference
         android:key="pc_mode_config"
         android:title="@string/pc_mode_config_title"
-        android:summary="@string/pc_mode_config_summery" />
+        android:summary="@string/pc_mode_config_summary" />
 
     <Preference
         android:key="tv_mode_config"
         android:title="@string/tv_mode_config_title"
-        android:summary="@string/tv_mode_config_summery" />
+        android:summary="@string/tv_mode_config_summary" />
 
 </PreferenceScreen>

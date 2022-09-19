@@ -13,7 +13,7 @@
     <Preference
         android:key="tv_mode_touchpad"
         android:title="@string/tv_mode_touchpad_title"
-        android:summary="@string/tv_mode_touchpad_summery"
+        android:summary="@string/tv_mode_touchpad_summary"
         android:enabled="false" />
 
 </PreferenceScreen>
