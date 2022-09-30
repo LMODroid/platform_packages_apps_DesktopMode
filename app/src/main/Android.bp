@@ -37,4 +37,13 @@ android_app {
         "com.google.android.material_material",
         "VncFlinger_aidl-java",
     ],
+    required: ["privapp_whitelist_com.libremobileos.desktopmode.xml"],
+}
+
+prebuilt_etc {
+    name: "privapp_whitelist_com.libremobileos.desktopmode.xml",
+
+    system_ext_specific: true,
+    src: "privapp_whitelist_com.libremobileos.desktopmode.xml",
+    sub_dir: "permissions",
 }
