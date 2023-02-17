@@ -1,9 +1,12 @@
 package com.libremobileos.desktopmode.preferences;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -22,6 +25,7 @@ public class ResolutionPreference extends Preference {
     protected int mHeight = 0;
     protected EditText mWidthText;
     protected EditText mHeightText;
+    private int lastSelectionWidth, lastSelectionHeight;
 
     public ResolutionPreference(Context context) {
         this(context, null);
@@ -45,7 +49,9 @@ public class ResolutionPreference extends Preference {
         mWidthText = (EditText) holder.findViewById(R.id.width_text_edit);
         mHeightText = (EditText) holder.findViewById(R.id.height_text_edit);
         mWidthText.setText(String.valueOf(mWidth));
+        mWidthText.setSelection(Math.min(String.valueOf(mWidth).length(), lastSelectionWidth));
         mHeightText.setText(String.valueOf(mHeight));
+        mHeightText.setSelection(Math.min(String.valueOf(mHeight).length(), lastSelectionHeight));
         mWidthText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -53,7 +59,12 @@ public class ResolutionPreference extends Preference {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                setWidth(Integer.parseInt(s.toString()), false);
+                try {
+                    if (s.length() < 1) return;
+                    setWidth(Integer.parseInt(s.toString()));
+                } catch (Exception e) {
+                    Log.e("ResolutionPreference", Log.getStackTraceString(e));
+                }
             }
 
             @Override
@@ -66,7 +77,12 @@ public class ResolutionPreference extends Preference {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                setHeight(Integer.parseInt(s.toString()), false);
+                try {
+                    if (s.length() < 1) return;
+                    setHeight(Integer.parseInt(s.toString()));
+                } catch (Exception e) {
+                    Log.e("ResolutionPreference", Log.getStackTraceString(e));
+                }
             }
 
             @Override
@@ -90,24 +106,6 @@ public class ResolutionPreference extends Preference {
                 return false;
             }
         });
-        mWidthText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    callChangeListener(getWidth());
-                    notifyChanged();
-                }
-            }
-        });
-        mHeightText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    callChangeListener(getHeight());
-                    notifyChanged();
-                }
-            }
-        });
     }
 
     public int getWidth() {
@@ -123,9 +121,13 @@ public class ResolutionPreference extends Preference {
     }
 
     public void setWidth(int width, boolean notifyChanged) {
+        if (notifyChanged && !callChangeListener(width)) return;
+        if (mWidth == width) return;
         mWidth = width;
         if (notifyChanged) {
-            notifyChanged();
+            lastSelectionWidth = mWidthText.getSelectionEnd();
+            new Handler(Looper.getMainLooper()).post(() ->
+                notifyChanged());
         }
     }
 
@@ -134,9 +136,13 @@ public class ResolutionPreference extends Preference {
     }
 
     public void setHeight(int height, boolean notifyChanged) {
+        if (notifyChanged && !callChangeListener(height)) return;
+        if (mHeight == height) return;
         mHeight = height;
         if (notifyChanged) {
-            notifyChanged();
+            lastSelectionHeight = mHeightText.getSelectionEnd();
+            new Handler(Looper.getMainLooper()).post(() ->
+                notifyChanged());
         }
     }
 }
