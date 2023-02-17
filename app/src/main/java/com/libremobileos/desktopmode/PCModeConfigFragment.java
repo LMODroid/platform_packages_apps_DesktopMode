@@ -131,12 +131,16 @@ public class PCModeConfigFragment extends PreferenceFragmentCompat implements
                 }
                 return true;
             case KEY_PC_MODE_RES:
+                boolean changed = false;
                 if (pcModeRes.getWidth() != mCustomResWidthValue) {
                     mCustomResWidthValue = pcModeRes.getWidth();
-                    handleChange(false);
+                    changed = true;
                 }
                 if (pcModeRes.getHeight() != mCustomResHeightValue) {
                     mCustomResHeightValue = pcModeRes.getHeight();
+                    changed = true;
+                }
+                if (changed) {
                     handleChange(false);
                 }
                 return true;
@@ -153,7 +157,7 @@ public class PCModeConfigFragment extends PreferenceFragmentCompat implements
     }
 
     private void handleChange(boolean needRestart) {
-        if (!mVncService.isRunning()) {
+        if (mVncService == null || !mVncService.isRunning()) {
             applyChanges();
             pcModeServiceButton.setTitle(R.string.pc_mode_service_start);
         } else if (needRestart) {
