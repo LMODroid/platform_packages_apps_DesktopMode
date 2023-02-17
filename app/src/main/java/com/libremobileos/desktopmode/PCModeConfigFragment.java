@@ -95,13 +95,16 @@ public class PCModeConfigFragment extends PreferenceFragmentCompat implements
                 VNCServiceController.start(getActivity());
                 return true;
             } else if (getString(R.string.pc_mode_service_restart_apply).contentEquals(title)) {
+                mVncService.unBind();
                 VNCServiceController.stop(getActivity());
                 applyChanges();
                 VNCServiceController.start(getActivity());
-                return true;
-            } else if (getString(R.string.pc_mode_service_restart).contentEquals(title)) {
-                VNCServiceController.stop(getActivity());
-                VNCServiceController.start(getActivity());
+                mVncService = new VNCServiceController(requireActivity(), connected -> {
+                    if (connected)
+                        pcModeServiceButton.setTitle(R.string.pc_mode_service_stop);
+                    else
+                        pcModeServiceButton.setTitle(R.string.pc_mode_service_start);
+                });
                 return true;
             } else if (getString(R.string.pc_mode_service_apply).contentEquals(title)) {
                 applyChanges();
