@@ -34,7 +34,6 @@
     <string name="pc_mode_scaling_title">Density Scaling</string>
     <string name="pc_mode_service_start">Start Now</string>
     <string name="pc_mode_service_stop">Stop Now</string>
-    <string name="pc_mode_service_restart">Restart Now</string>
     <string name="pc_mode_service_apply">Apply Changes Now</string>
     <string name="pc_mode_service_restart_apply">Apply and Restart Now</string>
 
