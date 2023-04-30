@@ -44,7 +44,7 @@ public class VNCServiceController extends BroadcastReceiver {
         mServiceConnection = new VNCServiceConnection();
         Intent intent = new Intent();
         intent.setClassName("com.libremobileos.vncflinger", "com.libremobileos.vncflinger.VncFlinger");
-        context.bindService(intent, mServiceConnection, 0x04000000 /*Context.BIND_FOREGROUND_SERVICE*/);
+        context.bindService(intent, mServiceConnection, 0);
     }
 
     public void unBind() {
@@ -61,7 +61,7 @@ public class VNCServiceController extends BroadcastReceiver {
             mService = null;
             Intent intent = new Intent();
             intent.setClassName("com.libremobileos.vncflinger", "com.libremobileos.vncflinger.VncFlinger");
-            mContext.bindService(intent, this, 0x04000000 /*Context.BIND_FOREGROUND_SERVICE*/);
+            mContext.bindService(intent, this, 0);
             mListener.onServiceEvent(false);
         }
     }
@@ -104,7 +104,7 @@ public class VNCServiceController extends BroadcastReceiver {
         intent.putExtra("intentPkg", "com.libremobileos.desktopmode");
         intent.putExtra("intentComponent", "com.libremobileos.desktopmode.PCModeConfigActivity");
 
-        context.startForegroundService(intent);
+        context.startService(intent);
     }
 
     public static void stop(Context context) {

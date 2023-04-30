@@ -17,5 +17,6 @@
 <permissions>
     <privapp-permissions package="com.libremobileos.desktopmode">
         <permission name="android.permission.WRITE_SECURE_SETTINGS"/>
+        <permission name="com.libremobileos.vncflinger.USE_VNC"/>
     </privapp-permissions>
 </permissions>
