@@ -1,10 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.android.settingslib.widget.IllustrationPreference
-        android:key="game_settings_illustration_video"
-        app:lottie_rawRes="@drawable/desktop_illustration" />
-
     <Preference
         android:key="pc_mode_config"
         android:title="@string/pc_mode_config_title"
